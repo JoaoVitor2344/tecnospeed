@@ -117,6 +117,13 @@ $("#inputFilePFX").on("change", function() {
     if($(this)[0].files.length == 1) {
         var fileSize = $(this)[0].files[0].size;
 
+        // Se for PFX
+        if (fileName.split('.').pop() != "pfx") {
+            alert("Selecione um arquivo PFX.");
+            $(this).val("");
+            return;
+        }
+
         // Se o arquivo ultrapassar 10MB
         if (fileSize > 10485760) {
             alert("O arquivo selecionado ultrapassa o limite de 10MB.");
@@ -145,4 +152,11 @@ $(".removerArquivo").on("click", function() {
     $(".nomeArquivo").text("");
     $(".tamanhoArquivo").text("");
     $(".inputFile").val("");
+});
+
+$(".btnConvert").on("click", function() {
+    if($("#inputFilePFX").val() == "" && $("#inputFileCRTKEY").val() == "") {
+        alert("Selecione um arquivo PFX ou um arquivo CRT e KEY.");
+        return;
+    }
 });
