@@ -10,30 +10,17 @@
 <body>
     <div class="main">
         <h1 class="title">Convertendo...</h1>
-    <div class="barra">
-        <div></div>
-    </div>
-
-    <span id="progressoNumero">0%</span>
-    <input type="number" onkeyup="alterarProgresso()" min="0" max="100">
-    </div>
-
-    <script>
-        const progresso = document.querySelector(".barra div");
-        const input = document.querySelector("input")
-
-        function alterarProgresso() {
-            if (input.value > 100) {
-                input.value = 100;
-            }
-            progresso.style.width = input.value + "%";
-            progressoNumero.textContent = input.value + "%";
-
-        }
+        <div class="barra">
+            <div></div>
+        </div>
         
-    </script>
-    <div>
-        <button onclick="window.location.href='index.html'"; class="btnCancel">Cancelar</button>
+        <span id="progressoNumero">0%</span>
+        <input type="number" onkeyup="alterarProgresso()" min="0" max="100">
     </div>
+    
+    <div><button class="btnCancel">Cancelar</button></div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> <!-- Carrega o jQuery -->
+    <script src="converter.js"></script> <!-- Carrega o arquivo converter.js -->
 </body>
 </html>
