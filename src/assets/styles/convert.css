@@ -19,20 +19,12 @@
     background-color: var(--cor-primaria);
 }
 
-.converter {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-}
-
 .btnCancel {
     position: fixed;
     right: 15px;
     bottom: 20px;
 
-    background-color: var(--cor-primaria);
+    background-color: var(--cor-primaria-claro);
     padding: 5px 20px;
     border: none;
     border-radius: 100px;

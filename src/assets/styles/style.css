@@ -48,7 +48,7 @@ button {
 }
 
 .btnSelect {
-    background-color: var(--cor-primaria);
+    background-color: var(--cor-primaria-claro);
     padding: 20px 50px;
     
     border: none;
@@ -60,7 +60,7 @@ button {
     right: 15px;
     bottom: 20px;
 
-    background-color: var(--cor-primaria);
+    background-color: var(--cor-primaria-claro);
 
     padding: 5px 20px;
     border: none;
