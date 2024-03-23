@@ -10,7 +10,7 @@ function createWindow() {
         }
     });
 
-    mainWindow.loadFile(path.join(__dirname, '..', 'renderer', 'convert.html'));
+    mainWindow.loadFile(path.join(__dirname, '..', 'renderer', 'index.html'));
 
     // Abrir o DevTools (apenas para desenvolvimento)
     // mainWindow.webContents.openDevTools();
