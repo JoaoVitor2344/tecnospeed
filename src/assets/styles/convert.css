@@ -1,25 +1,4 @@
-/* Tema Claro */
-:root {
-    --cor-primaria-claro: #622F7A;
-    --cor-secundaria-claro: #5C2C72;
-    --cor-terciaria-claro: #49235A;
-}
-
-/* Tema Escuro */
-:root.tema-escuro {
-    --cor-primaria: #AC48EE;
-    --cor-secundaria: #7F46A5;
-    --cor-terciaria: #6D3686;
-}
-
-body {
-    background-color: var(--cor-terciaria-claro);
-    color: white!important;
-    font-family: Arial, Helvetica, sans-serif;
-    height: 100vh;
-}
-
-h1 {
+.title {
     font-size: 60px;
     color: var(--cor-primaria);
     font-family: Arial, Helvetica, sans-serif;
@@ -46,14 +25,6 @@ h1 {
     align-items: center;
     justify-content: center;
     height: 100vh;
-}
-
-.main {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
 }
 
 .btnCancel {

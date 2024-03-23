@@ -1,5 +1,20 @@
+/* Tema Claro */
+:root {
+    --cor-primaria-claro: #622F7A;
+    --cor-secundaria-claro: #5C2C72;
+    --cor-terciaria-claro: #49235A;
+}
+
+/* Tema Escuro */
+:root.tema-escuro {
+    --cor-primaria: #AC48EE;
+    --cor-secundaria: #7F46A5;
+    --cor-terciaria: #6D3686;
+}
+
+
 body {
-    background-color: #1A094A;
+    background-color: var(--cor-terciaria-claro);
     color: white!important;
     font-family: Arial, Helvetica, sans-serif;
     height: 100vh;
@@ -30,7 +45,7 @@ button {
 }
 
 .btnSelect {
-    background-color: #321782;
+    background-color: var(--cor-primaria);
     padding: 20px 50px;
     
     border: none;
@@ -42,7 +57,8 @@ button {
     right: 15px;
     bottom: 20px;
 
-    background-color: #321782;
+    background-color: var(--cor-primaria);
+
     padding: 5px 20px;
     border: none;
     border-radius: 100px;
