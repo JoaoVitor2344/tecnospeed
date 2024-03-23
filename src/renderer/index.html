@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="../assets/styles/style.css">
+</head>
+<body>
+    <div class="main">
+        <section class="first">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui libero maiores</p>
+            <button class="btnSelect">Selecionar documentos</button>
+        </section>
+        <section class="second">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui libero maiores</p>
+            <button class="btnSelect">Selecionar documentos</button>
+        </section>
+    </div>
+    <div><button class="btnConvert">Converter</button></div>
+
+    <script src="converter.js"></script> <!-- Carrega o arquivo renderer.js -->
+    <script>
+        // Chama a função de conversão do arquivo converter.js
+        convertPfxToCrtKey('caminho_para_seu_arquivo.pfx', 'sua_senha', 'caminho_para_o_arquivo.crt', 'caminho_para_o_arquivo.key');
+    </script>
+</body>
+</html>

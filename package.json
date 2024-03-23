@@ -1,16 +1,14 @@
 {
-  "name": "bababea",
+  "name": "tecnospeed",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Descrição do seu projeto",
+  "main": "src/main/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron ."
+      "start": "electron ."
   },
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "electron": "^29.1.4",
-    "electron-reloader": "^1.2.3"
+  "author": "Seu Nome",
+  "license": "MIT",
+  "dependencies": {
+      "electron": "^15.0.0"
   }
 }
