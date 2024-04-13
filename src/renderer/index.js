@@ -7,19 +7,19 @@ $(".btnSelect").on("click", function() {
 
 $("#inputFileCRTKEY").on("change", function() {
     if ($(this)[0].files.length == 2) {
-        // Verifica se os arquivos são CRT e KEY
-        var ext1 = $(this)[0].files[0].name.split('.').pop();
-        var ext2 = $(this)[0].files[1].name.split('.').pop();
-
-        if (ext1 != "crt" || ext2 != "key") {
-            alert("Selecione um arquivo CRT e um arquivo KEY.");
-            $(this).val("");
-            return;
-        }
-
-        // Verifica se os arquivos são do mesmo certificado
         var crt = $(this)[0].files[0];
         var key = $(this)[0].files[1];
+
+        // Removendo a verificação de extensão de arquivo
+        // var ext1 = $(this)[0].files[0].name.split('.').pop();
+        // var ext2 = $(this)[0].files[1].name.split('.').pop();
+
+        // Removendo a verificação de extensão de arquivo
+        // if (ext1 != "crt" || ext2 != "key") {
+        //     alert("Selecione um arquivo CRT e um arquivo KEY.");
+        //     $(this).val("");
+        //     return;
+        // }
 
         var reader = new FileReader();
 
@@ -78,31 +78,34 @@ $("#inputFileCRTKEY").on("change", function() {
         if ($(this)[0].files.length == 1) {
             var file = $(this)[0].files[0];
 
-            if (file.name.split('.').pop() == "crt") {
-                $(".nomeArquivoCRT").text(file.name);
+            // Removendo a verificação de extensão de arquivo
+            // if (file.name.split('.').pop() == "crt") {
 
-                var tamanhoCRT = file.size;
-                if (tamanhoCRT < 1024) tamanhoCRT = tamanhoCRT + " bytes";
-                if (tamanhoCRT > 1024) tamanhoCRT = (tamanhoCRT / 1024).toFixed(2) + " KB";
-                if (tamanhoCRT > 1024) tamanhoCRT = (tamanhoCRT / 1024).toFixed(2) + " MB";
-                $(".tamanhoArquivoCRT").text(tamanhoCRT);
+            $(".nomeArquivoCRT").text(file.name);
 
-                $("#arquivoCRTKEY").css("display", "flex");
-            } else if (file.name.split('.').pop() == "key") {
-                $(".nomeArquivoKEY").text(file.name);
+            var tamanhoCRT = file.size;
+            if (tamanhoCRT < 1024) tamanhoCRT = tamanhoCRT + " bytes";
+            if (tamanhoCRT > 1024) tamanhoCRT = (tamanhoCRT / 1024).toFixed(2) + " KB";
+            if (tamanhoCRT > 1024) tamanhoCRT = (tamanhoCRT / 1024).toFixed(2) + " MB";
+            $(".tamanhoArquivoCRT").text(tamanhoCRT);
 
-                var tamanhoKEY = file.size;
-                if (tamanhoKEY < 1024) tamanhoKEY = tamanhoKEY + " bytes";
-                if (tamanhoKEY > 1024) tamanhoKEY = (tamanhoKEY / 1024).toFixed(2) + " KB";
-                if (tamanhoKEY > 1024) tamanhoKEY = (tamanhoKEY / 1024).toFixed(2) + " MB";
-                $(".tamanhoArquivoKEY").text(tamanhoKEY);
+            $("#arquivoCRTKEY").css("display", "flex");
+            // } else if (file.name.split('.').pop() == "key") {
 
-                $("#arquivoCRTKEY").css("display", "flex");
-            } else {
-                alert("Selecione um arquivo CRT ou um arquivo KEY.");
-                $(this).val("");
-                return;
-            }
+            $(".nomeArquivoKEY").text(file.name);
+
+            var tamanhoKEY = file.size;
+            if (tamanhoKEY < 1024) tamanhoKEY = tamanhoKEY + " bytes";
+            if (tamanhoKEY > 1024) tamanhoKEY = (tamanhoKEY / 1024).toFixed(2) + " KB";
+            if (tamanhoKEY > 1024) tamanhoKEY = (tamanhoKEY / 1024).toFixed(2) + " MB";
+            $(".tamanhoArquivoKEY").text(tamanhoKEY);
+
+            $("#arquivoCRTKEY").css("display", "flex");
+            // } else {
+            //     alert("Selecione um arquivo CRT ou um arquivo KEY.");
+            //     $(this).val("");
+            //     return;
+            // }
         }
     } else {
         alert("Selecione um arquivo CRT e um arquivo KEY.");
@@ -118,11 +121,11 @@ $("#inputFilePFX").on("change", function() {
         var fileSize = $(this)[0].files[0].size;
 
         // Se for PFX
-        if (fileName.split('.').pop() != "pfx") {
-            alert("Selecione um arquivo PFX.");
-            $(this).val("");
-            return;
-        }
+        // if (fileName.split('.').pop() != "pfx") {
+        //     alert("Selecione um arquivo PFX.");
+        //     $(this).val("");
+        //     return;
+        // }
 
         // Se o arquivo ultrapassar 10MB
         if (fileSize > 10485760) {

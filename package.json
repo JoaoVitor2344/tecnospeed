@@ -4,11 +4,15 @@
   "description": "Descrição do seu projeto",
   "main": "src/main/index.js",
   "scripts": {
-      "start": "electron ."
+    "start": "electron ."
   },
   "author": "Seu Nome",
   "license": "MIT",
   "dependencies": {
-      "electron": "^15.0.0"
+    "electron": "^15.5.7",
+    "openssl": "^2.0.0"
+  },
+  "devDependencies": {
+    "electron-reloader": "^1.2.3"
   }
 }
