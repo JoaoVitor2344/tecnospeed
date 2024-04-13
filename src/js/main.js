@@ -1,19 +1,26 @@
-const { app, BrowserWindow } = require('electron');
-const path = require('path');
+const { app, BrowserWindow, ipcMain } = require('electron/main');
+const path = require('node:path');
 
 function createWindow() {
     const mainWindow = new BrowserWindow({
         width: 800,
         height: 600,
         webPreferences: {
-            nodeIntegration: true
+            nodeIntegration: true,
+            preload: path.join(__dirname, 'preload.js')
         }
     });
+    
+    // Redicionar para outra página
+    ipcMain.on('redirect', (event, page) => {
+        mainWindow.loadFile(path.join(__dirname, `../${page}`));
+    });
 
-    mainWindow.loadFile(path.join(__dirname, '..', 'renderer', 'index.html'));
+    mainWindow.on('closed', () => {
+        mainWindow = null;
+    });
 
-    // Abrir o DevTools (apenas para desenvolvimento)
-    // mainWindow.webContents.openDevTools();
+    mainWindow.loadFile(path.join(__dirname, '../index.html'));
 }
 
 app.whenReady().then(() => {
@@ -34,4 +41,4 @@ app.on('window-all-closed', function () {
 
 try {
     require('electron-reloader')(module)
-} catch (_) {}
+} catch (_) { }

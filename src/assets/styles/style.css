@@ -81,6 +81,7 @@ button {
 .arquivos .tamanhoArquivo { margin-left: 10px; }
 
 .arquivos button {
+    display: none;
     background-color: red;
     border: none;
     border-radius: 5px;
@@ -94,8 +95,10 @@ button {
 
 .arquivo {
     display: none;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     position: absolute;
     width: 250px;
+    gap: 5px;
 }
