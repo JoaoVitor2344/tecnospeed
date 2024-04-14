@@ -124,114 +124,114 @@ $(".removerArquivo").on("click", function () {
     $(".inputFile").val("");
 });
 
-$(document).ready(function () {
-    const progresso = $(".barra div");
-    const input = $("input");
-    const progressoNumero = $("#progressoNumero");
-    const titulo = $(".title");
+// $(document).ready(function () {
+//     const progresso = $(".barra div");
+//     const input = $("input");
+//     const progressoNumero = $("#progressoNumero");
+//     const titulo = $(".title");
 
-    // Inicializa o progresso em 0%
-    progresso.css("width", "0%");
-    progressoNumero.text("0%");
-    titulo.text("Convertendo...");
+//     // Inicializa o progresso em 0%
+//     progresso.css("width", "0%");
+//     progressoNumero.text("0%");
+//     titulo.text("Convertendo...");
 
-    // Adiciona um evento de clique ao elemento de progresso
-    progresso.on("click", function () {
-        // Verifica se o progresso atingiu 100%
-        if (progresso.css("width") === "100%") {
-            // Chama a função para salvar os arquivos
-            salvarArquivos();
-        }
-    });
+//     // Adiciona um evento de clique ao elemento de progresso
+//     progresso.on("click", function () {
+//         // Verifica se o progresso atingiu 100%
+//         if (progresso.css("width") === "100%") {
+//             // Chama a função para salvar os arquivos
+//             salvarArquivos();
+//         }
+//     });
 
-    $("input").on("input", function () {
-        let valor = input.val().trim(); // Remove espaços em branco
+//     $("input").on("input", function () {
+//         let valor = input.val().trim(); // Remove espaços em branco
 
-        // Verifica se o valor não está vazio e é um número
-        if (valor !== "" && !isNaN(valor)) {
-            valor = parseInt(valor);
+//         // Verifica se o valor não está vazio e é um número
+//         if (valor !== "" && !isNaN(valor)) {
+//             valor = parseInt(valor);
 
-            // Limita o valor máximo a 100
-            if (valor > 100) {
-                valor = 100;
-                input.val(100); // Atualiza o valor exibido no input
-            }
+//             // Limita o valor máximo a 100
+//             if (valor > 100) {
+//                 valor = 100;
+//                 input.val(100); // Atualiza o valor exibido no input
+//             }
 
-            progresso.css("width", valor + "%");
-            progressoNumero.text(valor + "%");
+//             progresso.css("width", valor + "%");
+//             progressoNumero.text(valor + "%");
 
-            // Altera o texto para "Convertido" quando atingir 100%
-            if (valor === 100) {
-                titulo.text("Convertido");
-                // Chama a função para salvar os arquivos quando atingir 100%
-                salvarArquivos();
-            } else {
-                titulo.text("Convertendo...");
-            }
-        } else {
-            // Se o valor estiver vazio ou não for um número, redefine o progresso para 0%
-            progresso.css("width", "0%");
-            progressoNumero.text("0%");
-            titulo.text("Convertendo...");
-        }
-    });
-});
+//             // Altera o texto para "Convertido" quando atingir 100%
+//             if (valor === 100) {
+//                 titulo.text("Convertido");
+//                 // Chama a função para salvar os arquivos quando atingir 100%
+//                 salvarArquivos();
+//             } else {
+//                 titulo.text("Convertendo...");
+//             }
+//         } else {
+//             // Se o valor estiver vazio ou não for um número, redefine o progresso para 0%
+//             progresso.css("width", "0%");
+//             progressoNumero.text("0%");
+//             titulo.text("Convertendo...");
+//         }
+//     });
+// });
 
-// REMOVER APOS TESTAR
-function alterarProgresso() {
-    const progresso = $(".barra div");
-    const input = $("input");
-    const progressoNumero = $("#progressoNumero");
-    const titulo = $(".title");
+// // REMOVER APOS TESTAR
+// function alterarProgresso() {
+//     const progresso = $(".barra div");
+//     const input = $("input");
+//     const progressoNumero = $("#progressoNumero");
+//     const titulo = $(".title");
     
-    let valor = input.val().trim(); // Remove espaços em branco
+//     let valor = input.val().trim(); // Remove espaços em branco
 
-    // Verifica se o valor não está vazio e é um número
-    if (valor !== "" && !isNaN(valor)) {
-        valor = parseInt(valor);
+//     // Verifica se o valor não está vazio e é um número
+//     if (valor !== "" && !isNaN(valor)) {
+//         valor = parseInt(valor);
 
-        // Limita o valor máximo a 100
-        if (valor > 100) {
-            valor = 100;
-            input.val(100); // Atualiza o valor exibido no input
-        }
+//         // Limita o valor máximo a 100
+//         if (valor > 100) {
+//             valor = 100;
+//             input.val(100); // Atualiza o valor exibido no input
+//         }
 
-        progresso.css("width", valor + "%");
-        progressoNumero.text(valor + "%");
+//         progresso.css("width", valor + "%");
+//         progressoNumero.text(valor + "%");
 
-        // Altera o texto para "Convertido" quando atingir 100%
-        if (valor === 100) {
-            titulo.text("Convertido");
-            // Chama a função para salvar os arquivos quando atingir 100%
-            salvarArquivos();
-        } else {
-            titulo.text("Convertendo...");
-        }
-    } else {
-        // Se o valor estiver vazio ou não for um número, redefine o progresso para 0%
-        progresso.css("width", "0%");
-        progressoNumero.text("0%");
-        titulo.text("Convertendo...");
-    }
-}
+//         // Altera o texto para "Convertido" quando atingir 100%
+//         if (valor === 100) {
+//             titulo.text("Convertido");
+//             // Chama a função para salvar os arquivos quando atingir 100%
+//             salvarArquivos();
+//         } else {
+//             titulo.text("Convertendo...");
+//         }
+//     } else {
+//         // Se o valor estiver vazio ou não for um número, redefine o progresso para 0%
+//         progresso.css("width", "0%");
+//         progressoNumero.text("0%");
+//         titulo.text("Convertendo...");
+//     }
+// }
 
-// Função para salvar os arquivos quando o progresso atingir 100%
-function salvarArquivos() {
-    // Cria o blob para o primeiro arquivo
-    var blob1 = new Blob(["Conteúdo do primeiro arquivo a ser salvo"], { type: "text/plain;charset=utf-8" });
-    var url1 = URL.createObjectURL(blob1);
-    var link1 = document.createElement("a");
-    link1.href = url1;
-    link1.download = "arquivo1.key"; // Nome do primeiro arquivo a ser baixado
-    link1.click();
-    URL.revokeObjectURL(url1);
+// // Função para salvar os arquivos quando o progresso atingir 100%
+// function salvarArquivos() {
+//     // Cria o blob para o primeiro arquivo
+//     var blob1 = new Blob(["Conteúdo do primeiro arquivo a ser salvo"], { type: "text/plain;charset=utf-8" });
+//     var url1 = URL.createObjectURL(blob1);
+//     var link1 = document.createElement("a");
+//     link1.href = url1;
+//     link1.download = "arquivo1.key"; // Nome do primeiro arquivo a ser baixado
+//     link1.click();
+//     URL.revokeObjectURL(url1);
 
-    // Cria o blob para o segundo arquivo
-    var blob2 = new Blob(["Conteúdo do segundo arquivo a ser salvo"], { type: "text/plain;charset=utf-8" });
-    var url2 = URL.createObjectURL(blob2);
-    var link2 = document.createElement("a");
-    link2.href = url2;
-    link2.download = "arquivo2.crt"; // Nome do segundo arquivo a ser baixado
-    link2.click();
-    URL.revokeObjectURL(url2);
-}
+//     // Cria o blob para o segundo arquivo
+//     var blob2 = new Blob(["Conteúdo do segundo arquivo a ser salvo"], { type: "text/plain;charset=utf-8" });
+//     var url2 = URL.createObjectURL(blob2);
+//     var link2 = document.createElement("a");
+//     link2.href = url2;
+//     link2.download = "arquivo2.crt"; // Nome do segundo arquivo a ser baixado
+//     link2.click();
+//     URL.revokeObjectURL(url2);
+// }

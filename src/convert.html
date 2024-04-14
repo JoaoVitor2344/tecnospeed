@@ -18,7 +18,10 @@
         <span id="progressoNumero">0%</span>
     </div>
 
-    <div><button class="btnCancel" id="btnCancel">Cancelar</button></div>
+    <div>
+        <button class="btnCancel" id="btnCancel">Cancelar</button>
+        <button class="btnCancel" id="btnHome" style="display: none;">Home</button>
+    </div>
 
     <input type="file" id="fileInput" style="display: none;">
 
@@ -29,6 +32,10 @@
     <script>
         $(document).ready(function () {
             $('#btnCancel').click(function () {
+                window.electronAPI.redirect('index.html');
+            });
+
+            $("#btnHome").click(function () {
                 window.electronAPI.redirect('index.html');
             });
 
@@ -54,7 +61,15 @@
 
         function concluido() {
             const titulo = $(".title");
+            const progresso = $(".barra div");
+            const progressoNumero = $("#progressoNumero");
+            
             titulo.text("Convertido");
+            progresso.css("width", "100%");
+            progressoNumero.text("100%");
+
+            $("#btnCancel").css("display", "none");
+            $("#btnHome").css("display", "block");
         }
     </script>
 </body>
