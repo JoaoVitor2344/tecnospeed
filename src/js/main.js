@@ -11,7 +11,6 @@ function createWindow() {
         }
     });
 
-    // Redicionar para outra página
     ipcMain.on('redirect', (event, page) => {
         mainWindow.loadFile(path.join(__dirname, `../${page}`));
     });

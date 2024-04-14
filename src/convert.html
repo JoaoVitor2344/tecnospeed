@@ -7,6 +7,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="assets/styles/convert.css">
     <link rel="stylesheet" href="assets/styles/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 
 <body>
@@ -16,11 +17,12 @@
             <div class="progresso"></div>
         </div>
         <span id="progressoNumero">0%</span>
+        <button class="btnOpenPath" id="btnOpenPath" style="display: none;">Abrir local do arquivo</button>
     </div>
 
     <div>
         <button class="btnCancel" id="btnCancel">Cancelar</button>
-        <button class="btnCancel" id="btnHome" style="display: none;">Home</button>
+        <button class="btnCancel" id="btnHome" style="display: none;"><i class="fas fa-home"></i></button>
     </div>
 
     <input type="file" id="fileInput" style="display: none;">
@@ -39,14 +41,18 @@
                 window.electronAPI.redirect('index.html');
             });
 
+            $("#btnOpenPath").click(function () {
+                window.electronAPI.openPath();
+            });
+
             var arquivoPFX = sessionStorage.getItem('arquivoPFX');
-            var opensslArgsCRT = ['pkcs12', '-in', arquivoPFX, '-nocerts', '-out', 'C:\\Users\\joaov\\Downloads\\arquivo.crt'];
-            var opensslArgsKEY = ['pkcs12', '-in', arquivoPFX, '-clcerts', '-nokeys', '-out', 'C:\\Users\\joaov\\Downloads\\arquivo.key'];
+            var opensslArgsCRT = [arquivoPFX, '-nocerts'];
+            var opensslArgsKEY = [arquivoPFX, '-clcerts', '-nokeys'];
             var password = 't256o93';
 
-            window.electronAPI.openssl(arquivoPFX, opensslArgsCRT, password)
+            window.electronAPI.openssl(arquivoPFX, opensslArgsCRT, 'arquivo.crt', password)
                 .then(function (result) {
-                    window.electronAPI.openssl(arquivoPFX, opensslArgsKEY, password)
+                    window.electronAPI.openssl(arquivoPFX, opensslArgsKEY, 'arquivo.key', password)
                         .then(function (result) {
                             concluido();
                         })
@@ -70,6 +76,7 @@
 
             $("#btnCancel").css("display", "none");
             $("#btnHome").css("display", "block");
+            $("#btnOpenPath").css("display", "block");
         }
     </script>
 </body>

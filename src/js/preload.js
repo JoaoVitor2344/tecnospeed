@@ -1,14 +1,14 @@
-const { contextBridge, ipcRenderer } = require('electron');
+const { contextBridge, ipcRenderer, shell } = require('electron');
 const fs = require('fs');
 const path = require('path');
-const forge = require('node-forge');
 const { exec } = require('child_process');
 
 const opensslPath = path.resolve(__dirname, '/tecnospeed/openssl/bin/openssl.exe');
+const userDownloadsPath = path.join(process.env.USERPROFILE, 'Downloads');
 
 contextBridge.exposeInMainWorld('electronAPI', {
     redirect: (page) => ipcRenderer.send('redirect', page),
-    openssl: (arquivoPFXPath, opensslArgs, password) => {
+    openssl: (arquivoPFXPath, opensslArgs, nomeArquivo, password) => {
         return new Promise((resolve, reject) => {
             fs.readFile(arquivoPFXPath, (err, data) => {
                 if (err) {
@@ -16,10 +16,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
                     return;
                 }
 
-                const p12Asn1 = forge.asn1.fromDer(data.toString('binary'));
-                const p12 = forge.pkcs12.pkcs12FromAsn1(p12Asn1, false, password);
-
-                const opensslCommand = `openssl ${opensslArgs.join(' ')} -password pass:${password} -nodes`;
+                const opensslCommand = `openssl pkcs12 -in ${opensslArgs.join(' ')} -out ${userDownloadsPath}\\${nomeArquivo} -password pass:${password} -nodes`;
 
                 const child = exec(opensslCommand, { cwd: path.dirname(opensslPath) }, (err, stdout, stderr) => {
                     if (err) {
@@ -35,12 +32,14 @@ contextBridge.exposeInMainWorld('electronAPI', {
                     resolve(stdout);
                 });
 
-                // Terminar o processo após um período de tempo
                 setTimeout(() => {
-                    child.kill(); // Interrompe o processo
-                    reject(new Error('Tempo limite excedido')); // Rejeita a Promise com um erro
-                }, 5000); // Tempo em milissegundos
+                    child.kill(); 
+                    reject(new Error('Tempo limite excedido')); 
+                }, 5000); 
             });
         });
+    },
+    openPath: () => {
+        exec('explorer.exe ' + userDownloadsPath);
     }
 });

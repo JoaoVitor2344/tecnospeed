@@ -67,6 +67,14 @@ button {
     border-radius: 100px;
 }
 
+.btnOpenPath {
+    margin-top: 10px;
+    background-color: var(--cor-primaria-claro);
+    padding: 5px 20px;
+    border: none;
+    border-radius: 100px;
+}
+
 .arquivos {
     display: flex;
     flex-direction: column;
