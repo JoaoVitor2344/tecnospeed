@@ -32,14 +32,17 @@
                 window.electronAPI.redirect('index.html');
             });
 
-            var arquivoPFX = sessionStorage.getItem('arquivoPFX'); console.log(arquivoPFX);
-            var password = sessionStorage.getItem('password');
+            var arquivoPFX = sessionStorage.getItem('arquivoPFX');
+            var opensslArgs = ['pkcs12', '-in', arquivoPFX, '-nocerts', '-out', 'C:\\Users\\joaov\\Downloads\\arquivo.key'];
+            var password = 't256o93';
 
-            var opensslArgs = ['pkcs12', '-in', arquivoPFX, '-clcerts', '-nokeys', '-out', 'certificado.crt', '-passin', 'pass:' + password];
-
-            window.electronAPI.openssl('../OpenSSL/bin/openssl.exe', opensslArgs, function (err, buffer) {
-                console.log(err.toString(), buffer.toString());
-            });
+            window.electronAPI.openssl(arquivoPFX, opensslArgs, password)
+                .then(function (result) {
+                    console.log('Resultado:', result);
+                })
+                .catch(function (error) {
+                    console.error('Erro:', error);
+                });
         });
     </script>
 </body>
