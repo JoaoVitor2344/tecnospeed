@@ -63,8 +63,8 @@
                         console.error('Erro:', error);
                     });
             } else if (sessionStorage.getItem('arquivoCRT') != null && sessionStorage.getItem('arquivoKEY') != null) {
-                var arquivoCRT = sessionStorage.getItem('arquivoCRT'); console.log(arquivoCRT);
-                var arquivoKEY = sessionStorage.getItem('arquivoKEY'); console.log(arquivoKEY);
+                var arquivoCRT = sessionStorage.getItem('arquivoCRT'); 
+                var arquivoKEY = sessionStorage.getItem('arquivoKEY'); 
                 var password = 't256o93';
 
                 window.electronAPI.opensslCRTKEY(arquivoCRT, arquivoKEY, 'arquivo-pfx-convertido.pfx', password)
@@ -92,7 +92,6 @@
             $("#btnHome").css("display", "block");
             $("#btnOpenPath").css("display", "block");
 
-            // Limpa a sessão
             sessionStorage.clear();
         }
     </script>

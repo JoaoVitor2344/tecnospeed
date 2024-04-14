@@ -4,9 +4,7 @@ $(".btnSelect").on("click", function () {
 
 $("#inputFileCRTKEY").on("change", function () {
     if ($(this)[0].files.length == 2) {
-        // Verificar se os arquivos são CRT e KEY
-        if (!($(this)[0].files[0].name.toLowerCase().endsWith('.crt') && $(this)[0].files[1].name.toLowerCase().endsWith('.key')) ||
-            !($(this)[0].files[0].name.toLowerCase().endsWith('.key') && $(this)[0].files[1].name.toLowerCase().endsWith('.crt'))) {
+        if ((!this.files[0].name.toLowerCase().endsWith('.crt') || !this.files[1].name.toLowerCase().endsWith('.crt')) && !this.files[0].name.toLowerCase().endsWith('.key') && !this.files[0].name.toLowerCase().endsWith('.key')) {
             alert("Selecione um arquivo CRT e um arquivo KEY.");
             $(this).val("");
             return;
@@ -18,7 +16,7 @@ $("#inputFileCRTKEY").on("change", function () {
             const fileSize = file.size;
 
             if (file.name.toLowerCase().endsWith('.crt')) {
-                $("#inputFileCRT").val(file.path)
+                $("#inputTextCRT").val(file.path);
 
                 $("#nomeArquivoCRT").html(file.name.toLowerCase());
 
@@ -29,7 +27,7 @@ $("#inputFileCRTKEY").on("change", function () {
 
                 $("#tamanhoArquivoCRT").text(tamanho);
             } else if (file.name.toLowerCase().endsWith('.key')) {
-                $("#inputFileKEY").val(file.path);
+                $("#inputTextKEY").val(file.path);
 
                 $("#nomeArquivoKEY").html(file.name.toLowerCase());
 
@@ -42,6 +40,8 @@ $("#inputFileCRTKEY").on("change", function () {
             }
 
             $("#arquivoCRTKEY").css("display", "flex");
+            $("#removerArquivoCRT").css("display", "inline");
+            $("#removerArquivoKEY").css("display", "inline");
         }
     }
     else if ($(this)[0].files.length == 1) {
@@ -135,6 +135,10 @@ $(".removerArquivo").on("click", function () {
         $(".tamanhoArquivo").text("");
         $(".inputFile").val("");
         $("#inputFilePFX").val("");
+    }
+
+    if ($("#inputTextCRT").val() == "" && $("#inputTextKEY").val() == "") {
+        $("#inputFileCRTKEY").val("");
     }
 });
 
