@@ -4,7 +4,8 @@ $(".btnSelect").on("click", function () {
 
 $("#inputFileCRTKEY").on("change", function () {
     if ($(this)[0].files.length == 2) {
-        if ((!this.files[0].name.toLowerCase().endsWith('.crt') || !this.files[1].name.toLowerCase().endsWith('.crt')) && !this.files[0].name.toLowerCase().endsWith('.key') && !this.files[0].name.toLowerCase().endsWith('.key')) {
+        if ((!this.files[0].name.toLowerCase().endsWith('.crt') || !this.files[1].name.toLowerCase().endsWith('.crt')) && 
+             !this.files[0].name.toLowerCase().endsWith('.key') && !this.files[1].name.toLowerCase().endsWith('.key')) {
             alert("Selecione um arquivo CRT e um arquivo KEY.");
             $(this).val("");
             return;
