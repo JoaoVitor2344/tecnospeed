@@ -1,5 +1,7 @@
-const { contextBridge, ipcRenderer } = require('electron/renderer')
+const { contextBridge, ipcRenderer } = require('electron');
+const openssl = require('openssl-nodejs');
 
 contextBridge.exposeInMainWorld('electronAPI', {
-    redirect: (page) => ipcRenderer.send('redirect', page)
-})
+    redirect: (page) => ipcRenderer.send('redirect', page),
+    openssl: openssl
+});

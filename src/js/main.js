@@ -1,8 +1,8 @@
-const { app, BrowserWindow, ipcMain } = require('electron/main');
-const path = require('node:path');
+const { app, BrowserWindow, ipcMain, dialog } = require('electron');
+const path = require('path');
 
 function createWindow() {
-    const mainWindow = new BrowserWindow({
+    let mainWindow = new BrowserWindow({
         width: 800,
         height: 600,
         webPreferences: {
@@ -10,7 +10,7 @@ function createWindow() {
             preload: path.join(__dirname, 'preload.js')
         }
     });
-    
+
     // Redicionar para outra página
     ipcMain.on('redirect', (event, page) => {
         mainWindow.loadFile(path.join(__dirname, `../${page}`));
@@ -23,14 +23,12 @@ function createWindow() {
     mainWindow.loadFile(path.join(__dirname, '../index.html'));
 }
 
-app.whenReady().then(() => {
-    createWindow();
+app.whenReady().then(createWindow);
 
-    app.on('activate', function () {
-        if (BrowserWindow.getAllWindows().length === 0) {
-            createWindow();
-        }
-    });
+app.on('activate', function () {
+    if (BrowserWindow.getAllWindows().length === 0) {
+        createWindow();
+    }
 });
 
 app.on('window-all-closed', function () {

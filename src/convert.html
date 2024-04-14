@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br" class="tema-escuro">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,29 +8,40 @@
     <link rel="stylesheet" href="assets/styles/convert.css">
     <link rel="stylesheet" href="assets/styles/style.css">
 </head>
+
 <body>
     <div class="main">
         <h1 class="title">Convertendo...</h1>
         <div class="barra">
             <div class="progresso"></div>
         </div>
-        
         <span id="progressoNumero">0%</span>
-        <input type="number" oninput="alterarProgresso(this.value)" min="0" max="100">
     </div>
-    
+
     <div><button class="btnCancel" id="btnCancel">Cancelar</button></div>
-    
+
     <input type="file" id="fileInput" style="display: none;">
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> <!-- Carrega o jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script> <!-- Carrega o jQuery -->
     <script src="js/index.js"></script>
     <script>
         $(document).ready(function () {
             $('#btnCancel').click(function () {
                 window.electronAPI.redirect('index.html');
             });
+
+            var arquivoPFX = sessionStorage.getItem('arquivoPFX'); console.log(arquivoPFX);
+            var password = sessionStorage.getItem('password');
+
+            var opensslArgs = ['pkcs12', '-in', arquivoPFX, '-clcerts', '-nokeys', '-out', 'certificado.crt', '-passin', 'pass:' + password];
+
+            window.electronAPI.openssl('../OpenSSL/bin/openssl.exe', opensslArgs, function (err, buffer) {
+                console.log(err.toString(), buffer.toString());
+            });
         });
     </script>
 </body>
+
 </html>

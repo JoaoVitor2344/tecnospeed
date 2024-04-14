@@ -54,10 +54,20 @@
         // Redirecionar para a página de conversão
         $(document).ready(function () {
             $('#btnConvert').click(function () {
-                if ($('#inputFilePFX').get(0).files.length === 0 && $('#inputFileCRTKEY').get(0).files.length === 0){
+                if ($('#inputFilePFX').get(0).files.length === 0 && $('#inputFileCRTKEY').get(0).files.length === 0) {
                     alert('Selecione um arquivo PFX ou um arquivo CRT + KEY para converter.');
                     return;
                 }
+
+                if ($("#inputFilePFX").get(0).files.length > 0) {
+                    sessionStorage.setItem('arquivoPFX', $("#inputFilePFX").get(0).files[0].path);
+                } else if ($("#inputFileCRTKEY").get(0).files.length > 0) {
+                    sessionStorage.setItem('arquivoCRT', $("#inputFileCRTKEY").get(0).files[0].path);
+                    sessionStorage.setItem('arquivoKEY', $("#inputFileCRTKEY").get(0).files[1].path);
+                }
+
+                sessionStorage.setItem('password', 't256o93');
+
                 window.electronAPI.redirect('convert.html');
             });
         });
