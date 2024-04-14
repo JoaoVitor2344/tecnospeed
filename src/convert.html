@@ -33,17 +33,29 @@
             });
 
             var arquivoPFX = sessionStorage.getItem('arquivoPFX');
-            var opensslArgs = ['pkcs12', '-in', arquivoPFX, '-nocerts', '-out', 'C:\\Users\\joaov\\Downloads\\arquivo.key'];
+            var opensslArgsCRT = ['pkcs12', '-in', arquivoPFX, '-nocerts', '-out', 'C:\\Users\\joaov\\Downloads\\arquivo.crt'];
+            var opensslArgsKEY = ['pkcs12', '-in', arquivoPFX, '-clcerts', '-nokeys', '-out', 'C:\\Users\\joaov\\Downloads\\arquivo.key'];
             var password = 't256o93';
 
-            window.electronAPI.openssl(arquivoPFX, opensslArgs, password)
+            window.electronAPI.openssl(arquivoPFX, opensslArgsCRT, password)
                 .then(function (result) {
-                    console.log('Resultado:', result);
+                    window.electronAPI.openssl(arquivoPFX, opensslArgsKEY, password)
+                        .then(function (result) {
+                            concluido();
+                        })
+                        .catch(function (error) {
+                            console.error('Erro:', error);
+                        });
                 })
                 .catch(function (error) {
                     console.error('Erro:', error);
                 });
         });
+
+        function concluido() {
+            const titulo = $(".title");
+            titulo.text("Convertido");
+        }
     </script>
 </body>
 
