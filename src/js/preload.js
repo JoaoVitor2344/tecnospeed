@@ -3,7 +3,10 @@ const fs = require('fs');
 const path = require('path');
 const { exec } = require('child_process');
 
-const opensslPath = path.resolve(__dirname, '/tecnospeed/openssl/bin/openssl.exe');
+const opensslFolder = '../../openssl/bin/';
+const opensslExe = process.platform === 'win32' ? 'openssl.exe' : 'openssl';
+const opensslPath = path.resolve(__dirname, opensslFolder, opensslExe);
+
 const userDownloadsPath = path.join(process.env.USERPROFILE, 'Downloads');
 
 contextBridge.exposeInMainWorld('electronAPI', {
