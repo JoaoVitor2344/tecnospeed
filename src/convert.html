@@ -45,31 +45,45 @@
                 window.electronAPI.openPath();
             });
 
-            var arquivoPFX = sessionStorage.getItem('arquivoPFX');
-            var opensslArgsCRT = [arquivoPFX, '-nocerts'];
-            var opensslArgsKEY = [arquivoPFX, '-clcerts', '-nokeys'];
-            var password = 't256o93';
+            if (sessionStorage.getItem('arquivoPFX') != null) {
+                var arquivoPFX = sessionStorage.getItem('arquivoPFX');
+                var password = 't256o93';
 
-            window.electronAPI.openssl(arquivoPFX, opensslArgsCRT, 'arquivo.crt', password)
-                .then(function (result) {
-                    window.electronAPI.openssl(arquivoPFX, opensslArgsKEY, 'arquivo.key', password)
-                        .then(function (result) {
-                            concluido();
-                        })
-                        .catch(function (error) {
-                            console.error('Erro:', error);
-                        });
-                })
-                .catch(function (error) {
-                    console.error('Erro:', error);
-                });
+                window.electronAPI.opensslPFX(arquivoPFX, 'arquivo-crt-convertido.crt', password)
+                    .then(function (result) {
+                        window.electronAPI.opensslPFX(arquivoPFX, 'arquivo-key-convertido.key', password)
+                            .then(function (result) {
+                                concluido();
+                            })
+                            .catch(function (error) {
+                                console.error('Erro:', error);
+                            });
+                    })
+                    .catch(function (error) {
+                        console.error('Erro:', error);
+                    });
+            } else if (sessionStorage.getItem('arquivoCRT') != null && sessionStorage.getItem('arquivoKEY') != null) {
+                var arquivoCRT = sessionStorage.getItem('arquivoCRT'); console.log(arquivoCRT);
+                var arquivoKEY = sessionStorage.getItem('arquivoKEY'); console.log(arquivoKEY);
+                var password = 't256o93';
+
+                window.electronAPI.opensslCRTKEY(arquivoCRT, arquivoKEY, 'arquivo-pfx-convertido.pfx', password)
+                    .then(function (result) {
+                        concluido();
+                    })
+                    .catch(function (error) {
+                        console.error('Erro:', error);
+                    });
+            } else {
+                window.electronAPI.redirect('index.html');
+            }
         });
 
         function concluido() {
             const titulo = $(".title");
             const progresso = $(".barra div");
             const progressoNumero = $("#progressoNumero");
-            
+
             titulo.text("Convertido");
             progresso.css("width", "100%");
             progressoNumero.text("100%");
@@ -77,6 +91,9 @@
             $("#btnCancel").css("display", "none");
             $("#btnHome").css("display", "block");
             $("#btnOpenPath").css("display", "block");
+
+            // Limpa a sessão
+            sessionStorage.clear();
         }
     </script>
 </body>

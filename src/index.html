@@ -19,15 +19,17 @@
             <div class="arquivos" id="arquivosCRTKEY">
                 <input class="inputFile" type="file" name="arquivos" id="inputFileCRTKEY" multiple>
                 <div class="arquivo" id="arquivoCRTKEY">
-                    <div>
+                    <div id="arquivoCRT">
                         <label class="nomeArquivo" id="nomeArquivoCRT"></label>
                         <label class="tamanhoArquivo" id="tamanhoArquivoCRT"></label>
                         <button class="removerArquivo" id="removerArquivoCRT">x</button>
+                        <input class="inputFile" type="hidden" id="inputTextCRT">
                     </div>
-                    <div>
+                    <div id="arquivoKEY">
                         <label class="nomeArquivo" id="nomeArquivoKEY"></label>
                         <label class="tamanhoArquivo" id="tamanhoArquivoKEY"></label>
                         <button class="removerArquivo" id="removerArquivoKEY">x</button>
+                        <input class="inputFile" type="hidden" id="inputTextKEY">
                     </div>
                 </div>
             </div>
@@ -59,11 +61,11 @@
                     return;
                 }
 
-                if ($("#inputFilePFX").get(0).files.length > 0) {
+                if ($("#inputFileCRTKEY").get(0).files.length > 0) {
+                    sessionStorage.setItem('arquivoCRT', $("#inputTextCRT").val());
+                    sessionStorage.setItem('arquivoKEY', $("#inputTextKEY").val());
+                } else if ($("#inputFilePFX").get(0).files.length > 0) {
                     sessionStorage.setItem('arquivoPFX', $("#inputFilePFX").get(0).files[0].path);
-                } else if ($("#inputFileCRTKEY").get(0).files.length > 0) {
-                    sessionStorage.setItem('arquivoCRT', $("#inputFileCRTKEY").get(0).files[0].path);
-                    sessionStorage.setItem('arquivoKEY', $("#inputFileCRTKEY").get(0).files[1].path);
                 }
 
                 sessionStorage.setItem('password', 't256o93');

@@ -5,7 +5,8 @@ $(".btnSelect").on("click", function () {
 $("#inputFileCRTKEY").on("change", function () {
     if ($(this)[0].files.length == 2) {
         // Verificar se os arquivos são CRT e KEY
-        if (!($(this)[0].files[0].name.toLowerCase().endsWith('.crt') && $(this)[0].files[1].name.toLowerCase().endsWith('.key'))) {
+        if (!($(this)[0].files[0].name.toLowerCase().endsWith('.crt') && $(this)[0].files[1].name.toLowerCase().endsWith('.key')) ||
+            !($(this)[0].files[0].name.toLowerCase().endsWith('.key') && $(this)[0].files[1].name.toLowerCase().endsWith('.crt'))) {
             alert("Selecione um arquivo CRT e um arquivo KEY.");
             $(this).val("");
             return;
@@ -17,7 +18,7 @@ $("#inputFileCRTKEY").on("change", function () {
             const fileSize = file.size;
 
             if (file.name.toLowerCase().endsWith('.crt')) {
-                console.log("CRT");
+                $("#inputFileCRT").val(file.path)
 
                 $("#nomeArquivoCRT").html(file.name.toLowerCase());
 
@@ -28,7 +29,7 @@ $("#inputFileCRTKEY").on("change", function () {
 
                 $("#tamanhoArquivoCRT").text(tamanho);
             } else if (file.name.toLowerCase().endsWith('.key')) {
-                console.log("KEY");
+                $("#inputFileKEY").val(file.path);
 
                 $("#nomeArquivoKEY").html(file.name.toLowerCase());
 
@@ -57,6 +58,8 @@ $("#inputFileCRTKEY").on("change", function () {
         }
 
         if (file.name.toLowerCase().endsWith('.crt')) {
+            $("#inputTextCRT").val(file.path);
+
             const fileSize = file.size;
 
             var tamanho = fileSize;
@@ -70,6 +73,8 @@ $("#inputFileCRTKEY").on("change", function () {
 
             $("#arquivoCRTKEY").css("display", "flex");
         } else if (file.name.toLowerCase().endsWith('.key')) {
+            $("#inputTextKEY").val(file.path);
+
             const fileSize = file.size;
 
             var tamanho = fileSize;
@@ -114,14 +119,23 @@ $("#inputFilePFX").on("change", function () {
 
 $(".removerArquivo").on("click", function () {
     $("#arquivoPFX").css("display", "none");
-    $("#arquivoCRTKEY").css("display", "none");
 
-    $("#removerArquivoCRT").css("display", "none");
-    $("#removerArquivoKEY").css("display", "none");
-
-    $(".nomeArquivo").text("");
-    $(".tamanhoArquivo").text("");
-    $(".inputFile").val("");
+    if ($(this).attr("id") == "removerArquivoCRT") {
+        $("#nomeArquivoCRT").html("");
+        $("#tamanhoArquivoCRT").text("");
+        $("#removerArquivoCRT").css("display", "none");
+        $("#inputTextCRT").val("");
+    } else if ($(this).attr("id") == "removerArquivoKEY") {
+        $("#nomeArquivoKEY").html("");
+        $("#tamanhoArquivoKEY").text("");
+        $("#removerArquivoKEY").css("display", "none");
+        $("#inputTextKEY").val("");
+    } else {
+        $(".nomeArquivo").text("");
+        $(".tamanhoArquivo").text("");
+        $(".inputFile").val("");
+        $("#inputFilePFX").val("");
+    }
 });
 
 // $(document).ready(function () {
