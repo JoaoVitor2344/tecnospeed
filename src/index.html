@@ -60,7 +60,7 @@
                     return;
                 }
 
-                if ($("#inputFileCRTKEY").get(0).files.length > 0) {
+                if ($("#inputTextCRT").val() != "" && $("#inputTextKEY").val() != "") {
                     sessionStorage.setItem('arquivoCRT', $("#inputTextCRT").val());
                     sessionStorage.setItem('arquivoKEY', $("#inputTextKEY").val());
                 } else if ($("#inputFilePFX").get(0).files.length > 0) {

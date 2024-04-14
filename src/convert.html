@@ -47,7 +47,7 @@
 
             if (sessionStorage.getItem('arquivoPFX') != null) {
                 var arquivoPFX = sessionStorage.getItem('arquivoPFX');
-                var password = 't256o93';
+                var password = sessionStorage.getItem('password');
 
                 window.electronAPI.opensslPFX(arquivoPFX, 'arquivo-crt-convertido.crt', password)
                     .then(function (result) {
@@ -65,7 +65,7 @@
             } else if (sessionStorage.getItem('arquivoCRT') != null && sessionStorage.getItem('arquivoKEY') != null) {
                 var arquivoCRT = sessionStorage.getItem('arquivoCRT'); 
                 var arquivoKEY = sessionStorage.getItem('arquivoKEY'); 
-                var password = 't256o93';
+                var password = sessionStorage.getItem('password');
 
                 window.electronAPI.opensslCRTKEY(arquivoCRT, arquivoKEY, 'arquivo-pfx-convertido.pfx', password)
                     .then(function (result) {
