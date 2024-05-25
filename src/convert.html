@@ -14,7 +14,7 @@
     <div class="main">
         <h1 class="title">Convertendo...</h1>
         <div class="barra">
-            <div class="progresso"></div>
+            <div class="progresso" style="width: 0%;"></div>
         </div>
         <span id="progressoNumero">0%</span>
         <button class="btnOpenPath" id="btnOpenPath" style="display: none;">Abrir local do arquivo</button>
@@ -53,7 +53,7 @@
                     .then(function (result) {
                         window.electronAPI.opensslPFX(arquivoPFX, 'arquivo-key-convertido.key', password)
                             .then(function (result) {
-                                concluido();
+                                delay();
                             })
                             .catch(function (error) {
                                 console.error('Erro:', error);
@@ -69,7 +69,7 @@
 
                 window.electronAPI.opensslCRTKEY(arquivoCRT, arquivoKEY, 'arquivo-pfx-convertido.pfx', password)
                     .then(function (result) {
-                        concluido();
+                        delay();
                     })
                     .catch(function (error) {
                         console.error('Erro:', error);
@@ -78,6 +78,26 @@
                 window.electronAPI.redirect('index.html');
             }
         });
+
+        function delay() {
+            // const barra = $(".barra");
+            // const progresso = $(".barra div");
+        
+            // let width = 0;
+            // let maxWidth = barra.css("width");
+
+            // const porcentagem = maxWidth * 0.1;
+
+            // width = progresso.css("width");
+            // index = inde
+            // len 
+            // width = width.substr(0, )
+            // progresso.css("width", width + porcentagem);    
+
+            // setTimeout(delay(), 1000);
+
+            concluido();
+        }
 
         function concluido() {
             const titulo = $(".title");

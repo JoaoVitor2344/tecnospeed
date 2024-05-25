@@ -3,6 +3,7 @@
     --cor-primaria-claro: #622F7A;
     --cor-secundaria-claro: #5C2C72;
     --cor-terciaria-claro: #49235A;
+    --disabled: #a35fc3;
 }
 
 /* Tema Escuro */
@@ -43,6 +44,7 @@ button { cursor: pointer; }
 button {
     color: white;
     font-size: 20px;
+    transition: background 0.3s;
     
     box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.616);
 }
@@ -109,4 +111,8 @@ button {
     position: absolute;
     width: 250px;
     gap: 5px;
+}
+
+button:disabled {
+    background-color: var(--disabled);
 }

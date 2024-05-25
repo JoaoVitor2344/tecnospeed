@@ -43,6 +43,8 @@ $("#inputFileCRTKEY").on("change", function () {
             $("#arquivoCRTKEY").css("display", "flex");
             $("#removerArquivoCRT").css("display", "inline");
             $("#removerArquivoKEY").css("display", "inline");
+
+            $("#btnConvert").prop("disabled", false);
         }
     }
     else if ($(this)[0].files.length == 1) {
@@ -71,8 +73,9 @@ $("#inputFileCRTKEY").on("change", function () {
             $("#nomeArquivoCRT").html(file.name.toLowerCase());
             $("#tamanhoArquivoCRT").text(tamanho);
             $("#removerArquivoCRT").css("display", "inline");
-
             $("#arquivoCRTKEY").css("display", "flex");
+
+            $("#btnConvert").prop("disabled", false);
         } else if (file.name.toLowerCase().endsWith('.key')) {
             $("#inputTextKEY").val(file.path);
 
@@ -86,10 +89,10 @@ $("#inputFileCRTKEY").on("change", function () {
             $("#nomeArquivoKEY").html(file.name.toLowerCase());
             $("#tamanhoArquivoKEY").text(tamanho);
             $("#removerArquivoKEY").css("display", "inline");
-
             $("#arquivoCRTKEY").css("display", "flex");
-        }
 
+            $("#btnConvert").prop("disabled", false);
+        }
     } else {
         alert("Selecione um arquivo CRT e um arquivo KEY.");
         $(this).val("");
@@ -114,8 +117,9 @@ $("#inputFilePFX").on("change", function () {
     $("#nomeArquivoPFX").html(file.name.toLowerCase());
     $("#tamanhoArquivoPFX").text(tamanho);
     $("#removerArquivoPFX").css("display", "inline");
-
     $("#arquivoPFX").css("display", "flex");
+
+    $("#btnConvert").prop("disabled", false);
 });
 
 $(".removerArquivo").on("click", function () {
@@ -141,6 +145,8 @@ $(".removerArquivo").on("click", function () {
     if ($("#inputTextCRT").val() == "" && $("#inputTextKEY").val() == "") {
         $("#inputFileCRTKEY").val("");
     }
+
+    $("#btnConvert").prop("disabled", true);
 });
 
 // $(document).ready(function () {
