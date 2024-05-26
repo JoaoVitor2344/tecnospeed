@@ -29,3 +29,52 @@
     border: none;
     border-radius: 100px;
 }
+
+#modalPassword {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 400px;
+    padding: 20px;
+    gap: 1rem;
+    
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.616);
+
+    display: none;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+#modalPassword input {
+    width: 80%;
+    padding: 5px 10px;
+    border-radius: 100px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+#modalPassword div {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+#btnModalPassword {
+    padding: 5px 15px;
+    border-radius: 8px;
+    border: none;
+    background-color: var(--cor-terciaria-claro);
+}
+
+#mostrarPassword {
+    color: var(--cor-terciaria-claro);
+    font-weight: 600;
+    cursor: pointer;
+}
