@@ -74,14 +74,13 @@
                                     delay();
                                 })
                                 .catch(function (error) {
-                                    if (error.indexOf('Senha incorreta') !== -1) {
+                                    if (error instanceof Error && error.message.indexOf('Senha incorreta') !== -1) {
                                         alert('Senha inválida');
                                         $("#modalPassword").show("speed").css("display", "flex");
                                     } else {
                                         console.error('Erro:', error);
                                     }
                                 });
-
                         } else if (sessionStorage.getItem('arquivoCRT') != null && sessionStorage.getItem('arquivoKEY') != null) {
                             var arquivoCRT = sessionStorage.getItem('arquivoCRT');
                             var arquivoKEY = sessionStorage.getItem('arquivoKEY');

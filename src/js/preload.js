@@ -26,12 +26,12 @@ contextBridge.exposeInMainWorld('electronAPI', {
                         if (stderr.includes('Mac verify error: invalid password?')) {
                             reject('Erro: Senha incorreta');
                         } else {
-                            reject('Erro ao executar o comando OpenSSL');
+                            reject('Erro ao executar o comando OpenSSL, ' . stderr);
                         }
                         return;
                     }
 
-                    resolve(stdout);
+                    reject(stdout);
                 });
 
                 setTimeout(() => {
