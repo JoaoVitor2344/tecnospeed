@@ -15,20 +15,19 @@ contextBridge.exposeInMainWorld('electronAPI', {
         return new Promise((resolve, reject) => {
             fs.readFile(arquivoPFXPath, (err, data) => {
                 if (err) {
-                    reject(err);
+                    reject('Erro ao ler o arquivo PFX');
                     return;
                 }
 
                 const opensslCommand = `openssl pkcs12 -in ${arquivoPFXPath} -clcerts -nokeys -out ${userDownloadsPath}\\${nomeArquivo} -password pass:${password}`;
 
                 const child = exec(opensslCommand, { cwd: path.dirname(opensslPath) }, (err, stdout, stderr) => {
-                    if (err) {
-                        reject(err);
-                        return;
-                    }
-
-                    if (stderr) {
-                        reject(stderr);
+                    if (err || stderr) {
+                        if (stderr.includes('Mac verify error: invalid password?')) {
+                            reject('Erro: Senha incorreta');
+                        } else {
+                            reject('Erro ao executar o comando OpenSSL');
+                        }
                         return;
                     }
 
@@ -37,7 +36,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
 
                 setTimeout(() => {
                     child.kill(); 
-                    reject(new Error('Tempo limite excedido')); 
+                    reject('Tempo limite excedido'); 
                 }, 5000); 
             });
         });
@@ -46,26 +45,25 @@ contextBridge.exposeInMainWorld('electronAPI', {
         return new Promise((resolve, reject) => {
             fs.readFile(arquivoCRTPath, (errCRT, data) => {
                 if (errCRT) {
-                    reject(errCRT);
+                    reject('Erro ao ler o arquivo CRT');
                     return;
                 }
 
                 fs.readFile(arquivoKEYPath, (errKEY, data) => {
                     if (errKEY) {
-                        reject(errKEY);
+                        reject('Erro ao ler o arquivo KEY');
                         return;
                     }
 
                     const opensslCommand = `openssl pkcs12 -export -out ${userDownloadsPath}\\${nomeArquivo} -inkey ${arquivoKEYPath} -in ${arquivoCRTPath} -password pass:${password} -passin pass:${password}`;
     
                     const child = exec(opensslCommand, { cwd: path.dirname(opensslPath) }, (err, stdout, stderr) => {
-                        if (err) {
-                            reject(err);
-                            return;
-                        }
-    
-                        if (stderr) {
-                            reject(stderr);
+                        if (err || stderr) {
+                            if (stderr.includes('Mac verify error: invalid password?')) {
+                                reject('Erro: Senha incorreta');
+                            } else {
+                                reject('Erro ao executar o comando OpenSSL');
+                            }
                             return;
                         }
     
@@ -74,7 +72,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
     
                     setTimeout(() => {
                         child.kill(); 
-                        reject(new Error('Tempo limite excedido')); 
+                        reject('Tempo limite excedido'); 
                     }, 5000); 
                 });
             });

@@ -68,17 +68,20 @@
 
                             window.electronAPI.opensslPFX(arquivoPFX, 'arquivo-crt-convertido.crt', password)
                                 .then(function (result) {
-                                    window.electronAPI.opensslPFX(arquivoPFX, 'arquivo-key-convertido.key', password)
-                                        .then(function (result) {
-                                            delay();
-                                        })
-                                        .catch(function (error) {
-                                            console.error('Erro:', error);
-                                        });
+                                    return window.electronAPI.opensslPFX(arquivoPFX, 'arquivo-key-convertido.key', password);
+                                })
+                                .then(function (result) {
+                                    delay();
                                 })
                                 .catch(function (error) {
-                                    console.error('Erro:', error);
+                                    if (error.indexOf('Senha incorreta') !== -1) {
+                                        alert('Senha inválida');
+                                        $("#modalPassword").show("speed").css("display", "flex");
+                                    } else {
+                                        console.error('Erro:', error);
+                                    }
                                 });
+
                         } else if (sessionStorage.getItem('arquivoCRT') != null && sessionStorage.getItem('arquivoKEY') != null) {
                             var arquivoCRT = sessionStorage.getItem('arquivoCRT');
                             var arquivoKEY = sessionStorage.getItem('arquivoKEY');
@@ -99,7 +102,7 @@
 
             $("#mostrarPassword").on('click', function () {
                 const type = $("#password").attr('type');
-                
+
                 $("#password").prop('type', type === 'password' ? 'text' : 'password');
                 $("#mostrarPassword").html(type === 'password' ? 'Esconder' : 'Mostrar');
             });
