@@ -74,12 +74,8 @@
                                     delay();
                                 })
                                 .catch(function (error) {
-                                    if (error instanceof Error && error.message.indexOf('Senha incorreta') !== -1) {
-                                        alert('Senha inválida');
-                                        $("#modalPassword").show("speed").css("display", "flex");
-                                    } else {
-                                        console.error('Erro:', error);
-                                    }
+                                    alert('Senha inválida');
+                                    $("#modalPassword").show("speed").css("display", "flex");
                                 });
                         } else if (sessionStorage.getItem('arquivoCRT') != null && sessionStorage.getItem('arquivoKEY') != null) {
                             var arquivoCRT = sessionStorage.getItem('arquivoCRT');
@@ -90,7 +86,8 @@
                                     delay();
                                 })
                                 .catch(function (error) {
-                                    console.error('Erro:', error);
+                                    alert('Senha inválida');
+                                    $("#modalPassword").show("speed").css("display", "flex");
                                 });
                         } else {
                             window.electronAPI.redirect('index.html');
@@ -115,7 +112,7 @@
             let maxWidth = barra.width();
             let width = 0;
 
-            const duration = 15000;
+            const duration = 5000;
 
             const intervalTime = 100;
             const increment = (maxWidth / duration) * intervalTime;

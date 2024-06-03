@@ -45,6 +45,8 @@ button {
     color: white;
     font-size: 20px;
     transition: background 0.3s;
+    transition: transform 0.3s;
+    transition: color 0.3s;
     
     box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.616);
 }
@@ -92,8 +94,9 @@ button {
 
 .arquivos button {
     display: none;
-    background-color: red;
-    border: none;
+    background-color: transparent;
+    box-shadow: none;
+    border: 2px solid white;
     border-radius: 5px;
 
     width: 30px;
@@ -101,6 +104,11 @@ button {
     padding: 0;
     
     margin-left: 10px;
+}
+.arquivos button:hover {
+    background-color: white;
+    transform: scale(1.1);
+    color: black;
 }
 
 .arquivo {
