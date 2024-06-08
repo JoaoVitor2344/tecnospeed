@@ -31,7 +31,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
                         return;
                     }
 
-                    resolve(stdout);
+                    resolve('Erro,' . stdout);
                 });
 
                 setTimeout(() => {

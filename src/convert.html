@@ -21,12 +21,13 @@
     </div>
 
     <div id="modalPassword">
-        <h1 style="color: var(--cor-terciaria-claro);">Senha</h1>
+        <h1 style="color: var(--cor-terciaria-claro); margin-bottom: 0;">Senha</h1>
         <div>
             <input type="password" name="password" id="password" placeholder="Digite a senha">
             <a id="mostrarPassword">Mostrar</a>
         </div>
         <button id="btnModalPassword">Converter</button>
+        <span class="password-error" style="display: none; color: red;">Senha incorreta. Tente novamente</span>
     </div>
 
     <div>
@@ -74,8 +75,8 @@
                                     delay();
                                 })
                                 .catch(function (error) {
-                                    alert('Senha inválida');
-                                    $("#modalPassword").show("speed").css("display", "flex");
+                                    console.log(error);
+                                    mostrarModalPassword();
                                 });
                         } else if (sessionStorage.getItem('arquivoCRT') != null && sessionStorage.getItem('arquivoKEY') != null) {
                             var arquivoCRT = sessionStorage.getItem('arquivoCRT');
@@ -86,13 +87,15 @@
                                     delay();
                                 })
                                 .catch(function (error) {
-                                    alert('Senha inválida');
-                                    $("#modalPassword").show("speed").css("display", "flex");
+                                    mostrarModalPassword();
                                 });
                         } else {
                             window.electronAPI.redirect('index.html');
                         }
                     });
+                } else {
+                    $(".password-error").text("Digite a senha para converter o arquivo.");
+                    $(".password-error").show();
                 }
             });
 
@@ -143,6 +146,14 @@
             $("#btnOpenPath").css("display", "block").show("speed");
 
             sessionStorage.clear();
+        }
+
+        function mostrarModalPassword() {
+            $(".password-error").text("Senha incorreta. Tente novamente.");
+            $(".password-error").show();
+            $("#modalPassword").show("speed");
+            $("#inputPassword").prop('disabled', false);
+            $("#inputPassword").focus();
         }
     </script>
 </body>

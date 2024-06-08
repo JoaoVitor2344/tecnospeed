@@ -4,8 +4,7 @@ $(".btnSelect").on("click", function () {
 
 $("#inputFileCRTKEY").on("change", function () {
     if ($(this)[0].files.length == 2) {
-        if ((!this.files[0].name.toLowerCase().endsWith('.crt') || !this.files[1].name.toLowerCase().endsWith('.crt')) && 
-             !this.files[0].name.toLowerCase().endsWith('.key') && !this.files[1].name.toLowerCase().endsWith('.key')) {
+        if ((!this.files[0].name.toLowerCase().endsWith('.crt') && !this.files[0].name.toLowerCase().endsWith('.key')) || (!this.files[1].name.toLowerCase().endsWith('.crt') && !this.files[1].name.toLowerCase().endsWith('.key'))) {
             alert("Selecione um arquivo CRT e um arquivo KEY.");
             $(this).val("");
             return;
@@ -44,18 +43,14 @@ $("#inputFileCRTKEY").on("change", function () {
             $("#removerArquivoCRT").css("display", "inline");
             $("#removerArquivoKEY").css("display", "inline");
 
-            $("#btnConvert").prop("disabled", false);
+            
         }
     }
     else if ($(this)[0].files.length == 1) {
         const file = this.files[0];
 
-        if (file.name.toLowerCase().endsWith('.crt') && $("#nomeArquivoCRT").html() != "") {
-            alert("Selecione um arquivo KEY.");
-            $(this).val("");
-            return;
-        } else if (file.name.toLowerCase().endsWith('.key') && $("#nomeArquivoKEY").html() != "") {
-            alert("Selecione um arquivo CRT.");
+        if ((!this.files[0].name.toLowerCase().endsWith('.crt') && !this.files[0].name.toLowerCase().endsWith('.key'))) {
+            alert("Selecione um arquivo CRT e um arquivo KEY.");
             $(this).val("");
             return;
         }
@@ -74,8 +69,6 @@ $("#inputFileCRTKEY").on("change", function () {
             $("#tamanhoArquivoCRT").text(tamanho);
             $("#removerArquivoCRT").css("display", "inline");
             $("#arquivoCRTKEY").css("display", "flex");
-
-            $("#btnConvert").prop("disabled", false);
         } else if (file.name.toLowerCase().endsWith('.key')) {
             $("#inputTextKEY").val(file.path);
 
@@ -91,7 +84,7 @@ $("#inputFileCRTKEY").on("change", function () {
             $("#removerArquivoKEY").css("display", "inline");
             $("#arquivoCRTKEY").css("display", "flex");
 
-            $("#btnConvert").prop("disabled", false);
+            
         }
     } else {
         alert("Selecione um arquivo CRT e um arquivo KEY.");
@@ -119,7 +112,7 @@ $("#inputFilePFX").on("change", function () {
     $("#removerArquivoPFX").css("display", "inline");
     $("#arquivoPFX").css("display", "flex");
 
-    $("#btnConvert").prop("disabled", false);
+    
 });
 
 $(".removerArquivo").on("click", function () {
@@ -130,133 +123,25 @@ $(".removerArquivo").on("click", function () {
         $("#tamanhoArquivoCRT").text("");
         $("#removerArquivoCRT").css("display", "none");
         $("#inputTextCRT").val("");
+
+        $('#btnConvert').attr('class', 'btnConvert disabled');
     } else if ($(this).attr("id") == "removerArquivoKEY") {
         $("#nomeArquivoKEY").html("");
         $("#tamanhoArquivoKEY").text("");
         $("#removerArquivoKEY").css("display", "none");
         $("#inputTextKEY").val("");
+
+        $('#btnConvert').attr('class', 'btnConvert disabled');
     } else {
         $(".nomeArquivo").text("");
         $(".tamanhoArquivo").text("");
         $(".inputFile").val("");
         $("#inputFilePFX").val("");
+
+        $('#btnConvert').attr('class', 'btnConvert disabled');
     }
 
     if ($("#inputTextCRT").val() == "" && $("#inputTextKEY").val() == "") {
         $("#inputFileCRTKEY").val("");
     }
-
-    $("#btnConvert").prop("disabled", true);
 });
-
-// $(document).ready(function () {
-//     const progresso = $(".barra div");
-//     const input = $("input");
-//     const progressoNumero = $("#progressoNumero");
-//     const titulo = $(".title");
-
-//     // Inicializa o progresso em 0%
-//     progresso.css("width", "0%");
-//     progressoNumero.text("0%");
-//     titulo.text("Convertendo...");
-
-//     // Adiciona um evento de clique ao elemento de progresso
-//     progresso.on("click", function () {
-//         // Verifica se o progresso atingiu 100%
-//         if (progresso.css("width") === "100%") {
-//             // Chama a função para salvar os arquivos
-//             salvarArquivos();
-//         }
-//     });
-
-//     $("input").on("input", function () {
-//         let valor = input.val().trim(); // Remove espaços em branco
-
-//         // Verifica se o valor não está vazio e é um número
-//         if (valor !== "" && !isNaN(valor)) {
-//             valor = parseInt(valor);
-
-//             // Limita o valor máximo a 100
-//             if (valor > 100) {
-//                 valor = 100;
-//                 input.val(100); // Atualiza o valor exibido no input
-//             }
-
-//             progresso.css("width", valor + "%");
-//             progressoNumero.text(valor + "%");
-
-//             // Altera o texto para "Convertido" quando atingir 100%
-//             if (valor === 100) {
-//                 titulo.text("Convertido");
-//                 // Chama a função para salvar os arquivos quando atingir 100%
-//                 salvarArquivos();
-//             } else {
-//                 titulo.text("Convertendo...");
-//             }
-//         } else {
-//             // Se o valor estiver vazio ou não for um número, redefine o progresso para 0%
-//             progresso.css("width", "0%");
-//             progressoNumero.text("0%");
-//             titulo.text("Convertendo...");
-//         }
-//     });
-// });
-
-// // REMOVER APOS TESTAR
-// function alterarProgresso() {
-//     const progresso = $(".barra div");
-//     const input = $("input");
-//     const progressoNumero = $("#progressoNumero");
-//     const titulo = $(".title");
-    
-//     let valor = input.val().trim(); // Remove espaços em branco
-
-//     // Verifica se o valor não está vazio e é um número
-//     if (valor !== "" && !isNaN(valor)) {
-//         valor = parseInt(valor);
-
-//         // Limita o valor máximo a 100
-//         if (valor > 100) {
-//             valor = 100;
-//             input.val(100); // Atualiza o valor exibido no input
-//         }
-
-//         progresso.css("width", valor + "%");
-//         progressoNumero.text(valor + "%");
-
-//         // Altera o texto para "Convertido" quando atingir 100%
-//         if (valor === 100) {
-//             titulo.text("Convertido");
-//             // Chama a função para salvar os arquivos quando atingir 100%
-//             salvarArquivos();
-//         } else {
-//             titulo.text("Convertendo...");
-//         }
-//     } else {
-//         // Se o valor estiver vazio ou não for um número, redefine o progresso para 0%
-//         progresso.css("width", "0%");
-//         progressoNumero.text("0%");
-//         titulo.text("Convertendo...");
-//     }
-// }
-
-// // Função para salvar os arquivos quando o progresso atingir 100%
-// function salvarArquivos() {
-//     // Cria o blob para o primeiro arquivo
-//     var blob1 = new Blob(["Conteúdo do primeiro arquivo a ser salvo"], { type: "text/plain;charset=utf-8" });
-//     var url1 = URL.createObjectURL(blob1);
-//     var link1 = document.createElement("a");
-//     link1.href = url1;
-//     link1.download = "arquivo1.key"; // Nome do primeiro arquivo a ser baixado
-//     link1.click();
-//     URL.revokeObjectURL(url1);
-
-//     // Cria o blob para o segundo arquivo
-//     var blob2 = new Blob(["Conteúdo do segundo arquivo a ser salvo"], { type: "text/plain;charset=utf-8" });
-//     var url2 = URL.createObjectURL(blob2);
-//     var link2 = document.createElement("a");
-//     link2.href = url2;
-//     link2.download = "arquivo2.crt"; // Nome do segundo arquivo a ser baixado
-//     link2.click();
-//     URL.revokeObjectURL(url2);
-// }

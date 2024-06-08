@@ -55,12 +55,20 @@
             </div>
         </section>
     </div>
-    <div><button class="btnConvert" id="btnConvert" disabled>Converter</button></div>
+    <div><button class="btnConvert disabled" id="btnConvert">Converter</button></div>
 
     <script src="js/index.js"></script> <!-- Carrega o js principal -->
     <script>
         $(document).ready(function () {
-            $('#btnConvert').click(function () {
+            $('#btnConvert').click(function (e) {
+                var btnClass = $(this).attr('class');
+
+                if (btnClass.includes('disabled')) {
+                    alert('Selecione um arquivo CRT e um arquivo KEY ou um arquivo PFX para converter.');
+                    e.preventDefault();
+                    return;
+                }
+
                 if ($('#inputFilePFX').get(0).files.length === 0 && $('#inputFileCRTKEY').get(0).files.length === 0) {
                     alert('Selecione um arquivo PFX ou um arquivo CRT + KEY para converter.');
                     return;
@@ -74,6 +82,18 @@
                 }
 
                 window.electronAPI.redirect('convert.html');
+            });
+
+            $("#inputFileCRTKEY").on('change', function () {
+                if ($("#inputTextCRT").val() != "" && $("#inputTextKEY").val() != "") {
+                    $('#btnConvert').attr('class', 'btnConvert');
+                }
+            });
+
+            $("#inputFilePFX").on('change', function () {
+                if ($("#inputFilePFX").get(0).files.length > 0) {
+                    $('#btnConvert').attr('class', 'btnConvert');
+                }
             });
         });
     </script>
