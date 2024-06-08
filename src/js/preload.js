@@ -19,25 +19,25 @@ contextBridge.exposeInMainWorld('electronAPI', {
                     return;
                 }
 
-                const opensslCommand = `openssl pkcs12 -in ${arquivoPFXPath} -clcerts -nokeys -out ${userDownloadsPath}\\${nomeArquivo} -password pass:${password}`;
+                const opensslCommand = `openssl pkcs12 -in "${arquivoPFXPath}" -clcerts -nokeys -out "${userDownloadsPath}\\${nomeArquivo}" -password pass:${password}`;
 
-                const child = exec(opensslCommand, { cwd: path.dirname(opensslPath) }, (err, stdout, stderr) => {
+                const child = exec(opensslCommand, { cwd: path.dirname(opensslPath), shell: true }, (err, stdout, stderr) => {
                     if (err || stderr) {
                         if (stderr.includes('Mac verify error: invalid password?')) {
                             reject('Erro: Senha incorreta');
                         } else {
-                            reject('Erro ao executar o comando OpenSSL, ' . stderr);
+                            reject(`${err || stderr}`);
                         }
                         return;
                     }
 
-                    resolve('Erro,' . stdout);
+                    resolve(stdout);
                 });
 
                 setTimeout(() => {
-                    child.kill(); 
-                    reject('Tempo limite excedido'); 
-                }, 5000); 
+                    child.kill();
+                    reject('Tempo limite excedido');
+                }, 5000);
             });
         });
     },
@@ -56,24 +56,24 @@ contextBridge.exposeInMainWorld('electronAPI', {
                     }
 
                     const opensslCommand = `openssl pkcs12 -export -out ${userDownloadsPath}\\${nomeArquivo} -inkey ${arquivoKEYPath} -in ${arquivoCRTPath} -password pass:${password} -passin pass:${password}`;
-    
+
                     const child = exec(opensslCommand, { cwd: path.dirname(opensslPath) }, (err, stdout, stderr) => {
                         if (err || stderr) {
                             if (stderr.includes('Mac verify error: invalid password?')) {
                                 reject('Erro: Senha incorreta');
                             } else {
-                                reject('Erro ao executar o comando OpenSSL, ' . stderr);
+                                reject(`${err || stderr}`);
                             }
                             return;
                         }
-    
+
                         resolve(stdout);
                     });
-    
+
                     setTimeout(() => {
-                        child.kill(); 
-                        reject('Tempo limite excedido'); 
-                    }, 5000); 
+                        child.kill();
+                        reject('Tempo limite excedido');
+                    }, 5000);
                 });
             });
         });

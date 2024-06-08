@@ -42,8 +42,6 @@ $("#inputFileCRTKEY").on("change", function () {
             $("#arquivoCRTKEY").css("display", "flex");
             $("#removerArquivoCRT").css("display", "inline");
             $("#removerArquivoKEY").css("display", "inline");
-
-            
         }
     }
     else if ($(this)[0].files.length == 1) {
