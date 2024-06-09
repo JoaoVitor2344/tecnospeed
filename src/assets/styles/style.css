@@ -57,6 +57,8 @@ button {
     
     border: none;
     border-radius: 10px;
+    
+    transition: background 0.3s;
 }
 
 .btnConvert {
@@ -73,7 +75,7 @@ button {
     transition: background 0.3s;
 }
 
-.btnConvert.disabled {
+.btnConvert.disabled, .btnSelect:disabled {
     background-color: var(--disabled);
 }
 

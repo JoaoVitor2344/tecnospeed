@@ -3,6 +3,8 @@ $(".btnSelect").on("click", function () {
 });
 
 $("#inputFileCRTKEY").on("change", function () {
+    $(".second .btnSelect").prop("disabled", true);
+
     if ($(this)[0].files.length == 2) {
         if ((!this.files[0].name.toLowerCase().endsWith('.crt') && !this.files[0].name.toLowerCase().endsWith('.key')) || (!this.files[1].name.toLowerCase().endsWith('.crt') && !this.files[1].name.toLowerCase().endsWith('.key'))) {
             alert("Selecione um arquivo CRT e um arquivo KEY.");
@@ -91,6 +93,8 @@ $("#inputFileCRTKEY").on("change", function () {
 });
 
 $("#inputFilePFX").on("change", function () {
+    $(".first .btnSelect").prop("disabled", true);
+
     var file = this.files[0];
     var fileSize = file.size;
 
@@ -109,8 +113,6 @@ $("#inputFilePFX").on("change", function () {
     $("#tamanhoArquivoPFX").text(tamanho);
     $("#removerArquivoPFX").css("display", "inline");
     $("#arquivoPFX").css("display", "flex");
-
-    
 });
 
 $(".removerArquivo").on("click", function () {
@@ -137,9 +139,11 @@ $(".removerArquivo").on("click", function () {
         $("#inputFilePFX").val("");
 
         $('#btnConvert').attr('class', 'btnConvert disabled');
+        $('.first .btnSelect').prop('disabled', false);
     }
 
     if ($("#inputTextCRT").val() == "" && $("#inputTextKEY").val() == "") {
+        $('.second .btnSelect').prop('disabled', false);
         $("#inputFileCRTKEY").val("");
     }
 });

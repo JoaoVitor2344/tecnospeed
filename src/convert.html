@@ -63,40 +63,46 @@
                         if (sessionStorage.getItem('arquivoPFX') != null) {
                             var arquivoPFX = sessionStorage.getItem('arquivoPFX');
 
-                            window.electronAPI.opensslPFX(arquivoPFX, 'arquivo-crt-convertido.crt', password)
-                                .then(function (result) {
-                                    return window.electronAPI.opensslPFX(arquivoPFX, 'arquivo-key-convertido.key', password);
-                                })
-                                .then(function (result) {
+                            window.electronAPI.opensslPFX(arquivoPFX, 'arquivo-convertido', password)
+                                .then(function () {
                                     delay();
                                 })
                                 .catch(function (error) {
                                     console.log(error);
 
-                                    if (error != 'Erro: Senha incorreta') {
+                                    if (error === 'Erro ao ler o arquivo PFX') {
                                         alert('Selecione um arquivo PFX válido para converter.');
                                         voltarInicio();
+                                    } else if (error === 'Erro: Senha incorreta') {
+                                        mostrarModalPassword();
+                                    } else {
+                                        alert('Ocorreu um erro ao converter o arquivo PFX.');
+                                        voltarInicio();
                                     }
-
-                                    mostrarModalPassword();
                                 });
                         } else if (sessionStorage.getItem('arquivoCRT') != null && sessionStorage.getItem('arquivoKEY') != null) {
                             var arquivoCRT = sessionStorage.getItem('arquivoCRT');
                             var arquivoKEY = sessionStorage.getItem('arquivoKEY');
 
-                            window.electronAPI.opensslCRTKEY(arquivoCRT, arquivoKEY, 'arquivo-pfx-convertido.pfx', password)
+                            window.electronAPI.opensslCRTKEY(arquivoCRT, arquivoKEY, 'arquivo-convertido', password)
                                 .then(function (result) {
                                     delay();
                                 })
                                 .catch(function (error) {
                                     console.log(error);
 
-                                    if (error != 'Erro: Senha incorreta') {
+                                    if (error === 'Erro ao ler o arquivo CRT' || error === 'Erro ao ler o arquivo KEY') {
                                         alert('Selecione um arquivo CRT e um arquivo KEY válidos para converter.');
                                         voltarInicio();
+                                    } else if (error === 'Erro: Senha incorreta') {
+                                        mostrarModalPassword();
+                                    } else if (error === 'Formato de chave privada não suportado') {
+                                        alert('O formato da chave privada não é suportado. Verifique se o arquivo KEY está no formato correto.');
+                                        voltarInicio();
+                                    } else {
+                                        alert('Ocorreu um erro ao converter os arquivos CRT/KEY em PFX.');
+                                        voltarInicio();
                                     }
-
-                                    mostrarModalPassword();
                                 });
                         } else {
                             voltarInicio();
