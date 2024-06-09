@@ -84,7 +84,7 @@
                             var arquivoCRT = sessionStorage.getItem('arquivoCRT');
                             var arquivoKEY = sessionStorage.getItem('arquivoKEY');
 
-                            window.electronAPI.opensslCRTKEY(arquivoCRT, arquivoKEY, 'arquivo-convertido', password)
+                            window.electronAPI.opensslCRTKEY(arquivoCRT, arquivoKEY, 'arquivo-convertido.pfx', password)
                                 .then(function (result) {
                                     delay();
                                 })
